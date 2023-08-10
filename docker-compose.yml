@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  stackoverflow-login:
+    image: arielcarv/stackoverflow-login-bot:latest
+    restart: on-failure:3
+    environment:
+      EMAIL: <your-email>
+      PASS: <your-pass>
+      BOT_API_TOKEN: <your-telegram-bot-token>
+      USER_ID: <your-telegram-user>
