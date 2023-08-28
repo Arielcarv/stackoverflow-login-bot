@@ -10,8 +10,8 @@ class Account:
     def __init__(self):
         self.email = os.environ["EMAIL"]
         self.password = os.environ["PASS"]
-        self.user_id = os.environ["USER_ID"]
-        self.bot_api_token = os.environ["BOT_API_TOKEN"]
+        self.user_id = os.environ.get("USER_ID", "")
+        self.bot_api_token = os.environ.get("BOT_API_TOKEN", "")
 
 
 class StackOverflow:
@@ -75,6 +75,10 @@ class StackOverflow:
         ).group(1)
 
     def send_message_to_telegram(self, account, current_time):
+        if not (account.bot_api_token and account.user_id):
+            print(f"You forgot your TELEGRAM BOT TOKEN and USER ID!")
+            return
+
         url = f"https://api.telegram.org/bot{account.bot_api_token}/sendMessage"
 
         payload = {
